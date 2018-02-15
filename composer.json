@@ -2,7 +2,7 @@
     "name": "enpress/framework",
     "description": "The Enpress framework.",
     "keywords": ["enpress", "wordpress", "laravel", "framework"],
-    "license": "GPL-2.0+",
+    "license": "MIT",
     "authors": [
         {
             "name": "Andris Trieb",
