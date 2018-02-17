@@ -2,13 +2,13 @@
 
 namespace Enpress\Hook;
 
-use Illuminate\Foundation\Application;
 use Enpress\Hook\Config\Images;
 use Enpress\Hook\Config\Menus;
 use Enpress\Hook\Config\PostTypes;
 use Enpress\Hook\Config\Sidebars;
 use Enpress\Hook\Config\Taxonomies;
 use Enpress\Hook\Config\Templates;
+use Illuminate\Foundation\Application;
 
 class Hook
 {
@@ -29,9 +29,6 @@ class Hook
     public function __construct(Application $container)
     {
         $this->configurationPath = $container->configPath('cms');
-
-        $defaultPath = $container->resourcePath('functions');
-        $this->addFunctionPath($defaultPath);
         $config = $container['config'];
 
 
