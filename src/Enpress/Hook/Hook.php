@@ -2,7 +2,7 @@
 
 namespace Enpress\Hook;
 
-use Enpress\Foundation\Application;
+use Illuminate\Foundation\Application;
 use Enpress\Hook\Config\Images;
 use Enpress\Hook\Config\Menus;
 use Enpress\Hook\Config\PostTypes;
