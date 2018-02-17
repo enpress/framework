@@ -16,7 +16,7 @@ class Hook
     /*
      * Functions path receptacle
      */
-    protected $functionsPaths = [];
+    protected static $functionsPaths = [];
 
     protected $configurationPath;
     protected $configurationInstances = [];
@@ -62,7 +62,7 @@ class Hook
      */
     public function functionsPaths()
     {
-        return $this->functionsPaths;
+        return static::$functionsPaths;
     }
 
     /**
@@ -72,7 +72,7 @@ class Hook
      */
     public function addFunctionPath(string $path)
     {
-        $this->functionsPaths[] = $path;
+        static::$functionsPaths[] = $path;
     }
 
     /**
@@ -81,7 +81,7 @@ class Hook
     protected function includeFunctions()
     {
 
-        $paths = $this->functionsPaths;
+        $paths = $this->functionsPaths();
 
         foreach ($paths as $path) {
             $contents = new \DirectoryIterator($path);
