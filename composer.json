@@ -11,9 +11,9 @@
         }
     ],
     "require": {
-        "php": ">=7.1.3",
+        "php": "^7.1.3",
         "ext-mbstring": "*",
-        "laravel/framework": "5.6.*",
+        "laravel/framework": "~5.6",
         "doctrine/inflector": "~1.1"
     },
     "require-dev": {
@@ -29,6 +29,13 @@
     },
     "config": {
       "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Enpress\\Foundation\\Providers\\WordpressServiceProvider"
+            ]
+        }
     },
     "minimum-stability": "dev",
     "prefer-stable": true
