@@ -33,6 +33,7 @@
     "extra": {
         "laravel": {
             "providers": [
+                "Enpress\\Foundation\\Providers\\ArtisanServiceProvider",
                 "Enpress\\Foundation\\Providers\\WordpressServiceProvider",
                 "Enpress\\Hook\\HookServiceProvider"
             ]
