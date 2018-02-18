@@ -47,6 +47,16 @@ class Taxonomy extends WordpressModel
         );
     }
 
+    public function parent()
+    {
+        return $this->belongsTo(static::class, 'parent', $this->primaryKey);
+    }
+
+    public function children()
+    {
+        return $this->hasMany(static::class, 'parent', $this->primaryKey);
+    }
+
     public function setIdAttribute($value)
     {
         $this->term_taxonomy_id = $value;
