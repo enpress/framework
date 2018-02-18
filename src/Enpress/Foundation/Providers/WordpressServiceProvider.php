@@ -67,6 +67,9 @@ class WordpressServiceProvider extends ServiceProvider {
         define('WP_CONTENT_DIR', $publicPath . ($cms['content_directory'] ? DIRECTORY_SEPARATOR . $cms['content_directory'] : ''));
         define('WP_CONTENT_URL', WP_HOME . ($cms['content_directory'] ? '/' . $cms['content_directory'] : ''));
 
+        // Register Foundation Wordpress Functions
+        $this->app['hook']->addFunctionsPath(dirname(__DIR__) . '/functions');
+
     }
 
     public function register() {
