@@ -135,12 +135,12 @@ class Post extends WordpressModel
 
     public function parent()
     {
-        return $this->belongsTo(Post::class, 'post_parent', $this->primaryKey);
+        return $this->belongsTo(static::class, 'post_parent', $this->primaryKey);
     }
 
     public function children()
     {
-        return $this->hasMany(Post::class, 'post_parent', $this->primaryKey);
+        return $this->hasMany(static::class, 'post_parent', $this->primaryKey);
     }
 
     public function setIdAttribute($value)
