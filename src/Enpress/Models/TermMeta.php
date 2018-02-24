@@ -8,7 +8,7 @@ class TermMeta extends WordpressModel
 {
 
     protected $primaryKey = 'meta_id';
-    protected $table = 'term_meta';
+    protected $table = 'termmeta';
 
     protected $appends = [
         'id',

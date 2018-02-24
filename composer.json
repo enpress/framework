@@ -1,44 +1,50 @@
 {
-    "name": "enpress/framework",
-    "description": "The Enpress framework.",
-    "keywords": ["enpress", "wordpress", "laravel", "framework"],
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Andris Trieb",
-            "email": "andris@darc.co",
-            "homepage": "http://developer.darc.co"
-        }
-    ],
-    "require": {
-        "php": "^7.1.3",
-        "ext-mbstring": "*",
-        "laravel/framework": "~5.6",
-        "doctrine/inflector": "~1.1"
+  "name": "enpress/framework",
+  "description": "The Enpress framework.",
+  "keywords": [
+    "enpress",
+    "wordpress",
+    "laravel",
+    "framework"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Andris Trieb",
+      "email": "andris@darc.co",
+      "homepage": "http://developer.darc.co"
+    }
+  ],
+  "require": {
+    "php": "^7.1.3",
+    "ext-mbstring": "*",
+    "laravel/framework": "~5.6",
+    "doctrine/inflector": "~1.1"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~7.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Enpress\\": "src/Enpress/"
     },
-    "require-dev": {
-        "phpunit/phpunit": "~7.0"
-    },
-    "autoload": {
-        "psr-4": {
-            "Enpress\\":"src/Enpress/"
-        },
-      "files": [
-        "src/Enpress/Foundation/helpers.php"
+    "files": [
+      "src/Enpress/Foundation/helpers.php",
+      "src/Enpress/Cache/helpers.php"
+    ]
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Enpress\\Foundation\\Providers\\ArtisanServiceProvider",
+        "Enpress\\Foundation\\Providers\\WordpressServiceProvider",
+        "Enpress\\Hook\\HookServiceProvider"
       ]
-    },
-    "config": {
-      "sort-packages": true
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Enpress\\Foundation\\Providers\\ArtisanServiceProvider",
-                "Enpress\\Foundation\\Providers\\WordpressServiceProvider",
-                "Enpress\\Hook\\HookServiceProvider"
-            ]
-        }
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
 }
