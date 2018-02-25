@@ -4,10 +4,6 @@ namespace Enpress\Cache;
 
 use Illuminate\Container\Container;
 
-/**
- * Class CacheAdapter
- * @package Enpress\Cache
- */
 class CacheAdapter
 {
     /**
@@ -17,40 +13,34 @@ class CacheAdapter
     private $app;
 
     /**
-     * Has the adapter been booted
-     * @var bool
-     */
-    private static $booted;
-
-    /**
      * Non persistent cache store
      * @var array
      */
-    private static $cache;
+    private $cache;
 
     /**
      * Prefix important for shared cache stores
      * @var string
      */
-    private static $cachePrefix = '';
+    private $cachePrefix = '';
 
     /**
      * Should CMS data caching be persistent
      * @var bool
      */
-    private static $persistent;
+    private $persistent;
 
     /**
      * Non-persistent groups
      * @var array
      */
-    private static $nonPersistentGroups = [];
+    private $nonPersistentGroups = [];
 
     /**
      * Default expiration time in minutes
      * @var integer
      */
-    private static $defaultExpiration;
+    private $defaultExpiration;
 
     /**
      * CacheAdapter constructor
@@ -60,27 +50,14 @@ class CacheAdapter
     public function __construct(Container $app)
     {
         $this->app = $app;
-
-        if (!static::$booted) {
-            $this->boot();
-        }
-
-        return $this;
-    }
-
-    /**
-     * Set caching configurations and initialises the non-persistent cache store
-     */
-    protected function boot()
-    {
-        static::$cache = [];
+        $this->cache = [];
 
         $config = $this->app['config'];
-        static::$cachePrefix = $config->get('cms.object_cache.prefix', 'wp');
-        static::$persistent = $config->get('cms.object_cache.persistent', false);
-        static::$defaultExpiration = $config->get('cms.object_cache.expiration', 0);
+        $this->cachePrefix = $config->get('cms.object_cache.prefix', 'wp');
+        $this->persistent = $config->get('cms.object_cache.persistent', false);
+        $this->defaultExpiration = $config->get('cms.object_cache.expiration', 0);
 
-        static::$booted = true;
+        return $this;
     }
 
     /**
@@ -142,11 +119,11 @@ class CacheAdapter
     {
         $reference = $this->cacheReference($key, $group);
 
-        if (static::$persistent && !in_array($group, static::$nonPersistentGroups)) {
+        if ($this->persistent && !in_array($group, $this->nonPersistentGroups)) {
             $this->app['cache']->forget($reference);
         }
 
-        unset(static::$cache[$reference]);
+        unset($this->cache[$reference]);
 
         return true;
     }
@@ -162,11 +139,11 @@ class CacheAdapter
     {
         $reference = $this->cacheReference($key, $group);
 
-        if (static::$persistent && !in_array($group, static::$nonPersistentGroups)) {
+        if ($this->persistent && !in_array($group, $this->nonPersistentGroups)) {
             return $this->app['cache']->has($reference);
         }
 
-        return isset(static::$cache[$reference]);
+        return isset($this->cache[$reference]);
     }
 
     /**
@@ -176,9 +153,9 @@ class CacheAdapter
      */
     public function flush()
     {
-        static::$cache = [];
+        $this->cache = [];
         $canFlush = $this->app['config']->get('cms.object_cache.allow_persistent_flush');
-        return static::$persistent && $canFlush ? $this->app['cache']->flush() : true;
+        return $this->persistent && $canFlush ? $this->app['cache']->flush() : true;
     }
 
     /**
@@ -200,14 +177,14 @@ class CacheAdapter
         $reference = $this->cacheReference($key, $group);
         $found = true;
 
-        if (isset(static::$cache[$reference])) {
-            return is_object(static::$cache[$reference])
-                ? clone static::$cache[$reference]
-                : static::$cache[$reference];
+        if (isset($this->cache[$reference])) {
+            return is_object($this->cache[$reference])
+                ? clone $this->cache[$reference]
+                : $this->cache[$reference];
         }
 
         $cached = $this->app['cache']->get($reference);
-        static::$cache[$reference] = $cached;
+        $this->cache[$reference] = $cached;
 
         return $cached;
     }
@@ -275,20 +252,20 @@ class CacheAdapter
         }
 
         if (empty($expire)) {
-            $expire = static::$defaultExpiration;
+            $expire = $this->defaultExpiration;
         }
 
         $reference = $this->cacheReference($key, $group);
-        
-        if (static::$persistent && !in_array($group, static::$nonPersistentGroups)) {
+
+        if ($this->persistent && !in_array($group, $this->nonPersistentGroups)) {
             $this->app['cache']->put($reference, $data, $expire);
         }
 
         if (is_object( $data )) {
             $data = clone $data;
         }
-        
-        static::$cache[$reference] = $data;
+
+        $this->cache[$reference] = $data;
         return true;
     }
 
@@ -304,7 +281,7 @@ class CacheAdapter
             $group = 'default';
         }
 
-        return static::$cachePrefix . $group . '_' . $key;
+        return $this->cachePrefix . $group . '_' . $key;
     }
 
     /**
@@ -319,7 +296,7 @@ class CacheAdapter
         }
 
         if (!empty($groups)) {
-            static::$nonPersistentGroups = array_merge(static::$nonPersistentGroups, $groups);
+            $this->nonPersistentGroups = array_merge($this->nonPersistentGroups, $groups);
         }
     }
 
@@ -328,7 +305,7 @@ class CacheAdapter
      */
     public function dd()
     {
-        return dd(static::$cache);
+        return dd($this->cache);
     }
 
 }
