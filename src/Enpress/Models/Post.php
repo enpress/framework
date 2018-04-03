@@ -283,4 +283,12 @@ class Post extends WordpressModel
         return $query->where('post_type', $type);
     }
 
+
+    public static function root($name)
+    {
+        return static::where('post_name', $name)
+            ->where('post_parent', 0)
+            ->firstOrFail();
+    }
+
 }
