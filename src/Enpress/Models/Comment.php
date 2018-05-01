@@ -47,6 +47,10 @@ class Comment extends WordpressModel
         'comment_date_gmt'
     ];
 
+    protected $guarded = [
+        'comment_ID'
+    ];
+
     public function post()
     {
         return $this->belongsTo(Post::class, 'comment_post_ID', 'ID');

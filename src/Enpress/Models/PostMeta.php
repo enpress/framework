@@ -23,6 +23,10 @@ class PostMeta extends WordpressModel
         'meta_value'
     ];
 
+    protected $guarded = [
+        'meta_id'
+    ];
+
     public $timestamps = false;
 
     public function post()

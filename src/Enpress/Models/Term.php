@@ -19,6 +19,10 @@ class Term extends WordpressModel
         'group'
     ];
 
+    protected $guarded = [
+        'term_id'
+    ];
+
     public function meta()
     {
         return $this->hasMany(TermMeta::class, 'term_id')

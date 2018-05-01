@@ -23,6 +23,10 @@ class UserMeta extends WordpressModel
         'meta_value'
     ];
 
+    protected $guarded = [
+        'umeta_id'
+    ];
+
     public $timestamps = false;
 
     public function user()

@@ -10,6 +10,10 @@ class Link extends WordpressModel
     protected $primaryKey = 'link_id';
     protected $table = 'links';
 
+    protected $guarded = [
+        'link_id'
+    ];
+
     const CREATED_AT = 'link_updated';
     const UPDATED_AT = 'link_updated';
 

@@ -43,6 +43,10 @@ class Post extends WordpressModel
         'post_parent'
     ];
 
+    protected $guarded = [
+        'ID'
+    ];
+
     protected $dates = [
         'post_date',
         'post_date_gmt',

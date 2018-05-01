@@ -13,6 +13,10 @@ class Taxonomy extends WordpressModel
     protected $primaryKey = 'term_taxonomy_id';
     protected $table = 'term_taxonomy';
 
+    protected $guarded = [
+        'term_taxonomy_id'
+    ];
+
     protected $appends = ['id'];
 
     public function term()

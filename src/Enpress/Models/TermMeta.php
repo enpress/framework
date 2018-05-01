@@ -16,9 +16,8 @@ class TermMeta extends WordpressModel
         'value'
     ];
 
-    protected $fillable = [
-        'meta_key',
-        'meta_value'
+    protected $guarded = [
+        'meta_id'
     ];
 
     public function term()

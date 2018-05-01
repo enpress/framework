@@ -10,4 +10,8 @@ class TermRelationship extends WordpressModel
     protected $primaryKey = 'term_taxonomy_id';
     protected $table = 'term_relationships';
 
+    protected $guarded = [
+        //
+    ];
+
 }

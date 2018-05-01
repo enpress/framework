@@ -22,6 +22,10 @@ class Option extends WordpressModel
         'option_value'
     ];
 
+    protected $guarded = [
+        'option_id'
+    ];
+
     public $timestamps = false;
 
     public function setIdAttribute($value)

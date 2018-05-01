@@ -36,6 +36,10 @@ class User extends WordpressModel
         'user_status'
     ];
 
+    protected $guarded = [
+        'ID'
+    ];
+
     protected $dates = [
         'user_registered'
     ];
