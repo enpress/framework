@@ -56,7 +56,10 @@ class PostTypes extends Configurator
             'show_ui'            => true,
             'show_in_menu'       => true,
             'query_var'          => true,
-            'rewrite'            => ['slug' => $postType],
+            'rewrite'            => [
+                'with_front' => false,
+                'slug' => $postType
+            ],
             'capability_type'    => 'post',
             'has_archive'        => true,
             'hierarchical'       => false,
