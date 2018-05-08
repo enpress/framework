@@ -54,6 +54,12 @@ class Post extends WordpressModel
         'post_modified_gmt'
     ];
 
+    public function getMeta($key, $default = false)
+    {
+        $this->loadMissing('meta');
+        return $this->meta->where('meta_key', $key)->pluck('meta_value')->first() ?: $default;
+    }
+
     public function field($name, $default = null)
     {
         return get_field($name, $this->ID) ?: $default;
